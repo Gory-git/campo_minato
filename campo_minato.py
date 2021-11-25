@@ -24,7 +24,7 @@ def nuova_griglia():
     R = valore_parametro('R')
     G = []
     for i in range(R):
-        riga = [0]*C
+        riga = [0] * C
         G.append(riga)
     inserisci_mine(G)
     inserisci_suggerimenti(G)
@@ -83,7 +83,7 @@ def inserisci_suggerimenti(G):
         for j in range(C):
             if G[i][j] == -1:
                 if i > 0 and j > 0 and G[i - 1][j - 1] != 1: #angolo in alto a sx
-                    G[i - 1][j - 1]
+                    G[i - 1][j - 1] += 1
                 if i > 0 and G[i - 1][j] != -1: #in alto centrale
                     G[i - 1][j] += 1
                 if i > 0 and j + 1 < C and G[i - 1][j + 1] != -1: #angolo in alto a dx
@@ -92,38 +92,9 @@ def inserisci_suggerimenti(G):
                     G[i][j - 1] += 1
                 if j + 1 < C and G[i][j + 1]: #dx
                     G[i][j +1] += 1
-                if i + 1 < R and j > 0 and G[i + 1][j - 1]:
+                if i + 1 < R and j > 0 and G[i + 1][j - 1]: #angolo in basso a sx
                     G[i + 1][j - 1] += 1
-                if 
-                if
-'''
-def inserisci_mine(G):
-    nr = len(G)
-    nc = len(G[0])
-    for i in range(nr):
-        j = random.randint(0,nc)
-        if G[i][j] == 0:
-            G[i][j] = -1
-
-def inserisci_suggerimenti(G):
-    nr = len(G)
-    nc = len(G[0])
-    for i in range(nr):
-        for j in range(nc):
-            if G[i][j] == 0:
-                G[i][j] = calcola_mine_intorno(G,i,j)
-
-def calcola_mine_intorno(G,i,j):
-    ret = 0
-
-#    if G[i - 1][j - 1] == -1:
-#        ret += 1
-#    if G[i - 1][j] == -1:
-#        ret += 1
-
-
-    for c in range(i - 1, i + 2):
-        for d in range(j - 1, j + 2):
-            if c != i and d != j and 
-            
-'''
+                if i + 1 < R and G[i + 1][j] != -1: #in basso centrale
+                    G[i + 1][j] += 1
+                if i + 1 < R and j + 1 < C and G[i + 1][j + 1] != -1: #angolo in basso a dx
+                    G[i + 1][j + 1] += 1
