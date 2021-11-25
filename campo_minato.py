@@ -127,37 +127,3 @@ def calcola_mine_intorno(G,i,j):
             if c != i and d != j and 
             
 '''
-    
-
-'''
-def inserisci_mine(G):
-    nr = len(G)
-    nc = len(G[0])
-    for i in range(nr):
-        j = random.randint(0,nc)
-        if G[i][j] == 0:
-            G[i][j] = -1
-
-def inserisci_suggerimenti(G):
-    nr = len(G)
-    nc = len(G[0])
-    for i in range(nr):
-        for j in range(nc):
-            if G[i][j] == 0:
-                G[i][j] = calcola_mine_intorno(G,i,j)
-
-def calcola_mine_intorno(G,i,j):
-    ret = 0
-
-#    if G[i - 1][j - 1] == -1:
-#        ret += 1
-#    if G[i - 1][j] == -1:
-#        ret += 1
-
-
-    for c in range(i - 1, i + 2):
-        for d in range(j - 1, j + 2):
-            if c != i and d != j and 
-            
-'''
-    
