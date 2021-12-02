@@ -2,19 +2,19 @@ import random
 
 def main():
     G = nuova_griglia()
-    G_UI = nuova_griglia()
+    G_UI = nuova_griglia_UI()
     while(True):
         print('Griglia: ')
-        stampa_griglia(G_UI)#TODO
+        stampa_griglia(G_UI)
         print('Inserisci le coordinate della prossima mossa:')
         r = int(input('Riga'))
         c = int(input('Colonna'))
         if G[r][c] == -1:
             print('Hai perso la partita c==3')
-            griglia_sconfitta(G,G_UI)#TODO
-            stampa_griglia(G_UI)#TODO
+            griglia_sconfitta(G,G_UI)
+            stampa_griglia(G_UI)
             break
-        mossa(G,G_UI,r,c)#TODO
+        mossa(G,G_UI,r,c)
         if vittoria(G,G_UI):#TODO
             print("Hai vinto!!!  --c==3")
             break
@@ -98,3 +98,57 @@ def inserisci_suggerimenti(G):
                     G[i + 1][j] += 1
                 if i + 1 < R and j + 1 < C and G[i + 1][j + 1] != -1: #angolo in basso a dx
                     G[i + 1][j + 1] += 1
+
+def nuova_griglia_UI():
+    C = valore_parametro('C')
+    R = valore_parametro('R')
+    G_UI = []
+    for i in range(R):
+        riga = [valore_parametro('cella_coperta')] * C
+        G_UI.append(riga)
+    return G_UI
+
+def stampa_griglia(griglia):
+    for riga in griglia:
+        for elemento in riga:
+            print(str(elemento) + " ",end='')
+        print()
+
+def griglia_sconfitta(G,G_UI):
+    R = valore_parametro('R')
+    C = valore_parametro('C')
+    for i in range(R):
+        for j in range(C):
+            if G[i][j] == -1:
+                G_UI[i][j] = valore_parametro('cella_mina')
+
+def mossa(G,G_UI,r,c):
+    if G[r][c] > 0:
+        G_UI[r][c] = G[r][c]
+    else:
+        scopri_adiacenti(G,G_UI,r,c)
+
+def scopri_adiacenti(G,G_UI,r,c):
+    if G_UI[r][c] != valore_parametro('cella_coperta'):
+        return
+    G_UI[r][c] = G[r][c]
+    if G[r][c] > 0:
+        return
+    R = valore_parametro('R')
+    C = valore_parametro('C')
+    if r > 0 and c > 0:
+        scopri_adiacenti(G,G_UI,r - 1,c - 1)
+    if r > 0:
+        scopri_adiacenti(G,G_UI,r - 1,c)
+    if r > 0 and c + 1 < C:
+        scopri_adiacenti(G,G_UI,r - 1,c + 1)
+    if c > 0:
+        scopri_adiacenti(G,G_UI,r,c - 1) 
+    if c + 1 < C:
+        scopri_adiacenti(G,G_UI,r,c + 1)
+    if r + 1 < R and c > 0:
+        scopri_adiacenti(G,G_UI,r + 1,c - 1)
+    if r + 1 < R:
+        scopri_adiacenti(G,G_UI,r + 1,c)
+    if r + 1 < R and c + 1 < C:
+        scopri_adiacenti(G,G_UI,r + 1,c + 1)
