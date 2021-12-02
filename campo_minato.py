@@ -152,3 +152,15 @@ def scopri_adiacenti(G,G_UI,r,c):
         scopri_adiacenti(G,G_UI,r + 1,c)
     if r + 1 < R and c + 1 < C:
         scopri_adiacenti(G,G_UI,r + 1,c + 1)
+
+
+def vittoria(G,G_UI):
+    R = valore_parametro('R')
+    C = valore_parametro('C')
+    for i in range(R):
+        for j in range(C):
+            if G_UI[i][j] == valore_parametro('cella_coperta') and G_UI[i][j] != -1:
+                return False
+    return True
+
+main()
